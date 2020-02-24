@@ -2,20 +2,9 @@ const cheerio = require('cheerio')
 const axios = require('axios')
 const db = require('../models');
 module.exports = function (app) {
-    app.get('/', function (req, res) {
-        db.Article.find({}).then(function(art) {
-          
-            res.render('index', {
-                articles: JSON.parse(JSON.stringify(art))
-            })
-            
-        }).catch(function(err) {
-            console.log(err)
-        })
-        
-    });
 
-    app.get('/scraped', function (req, res) {
+    app.get('/', function (req, res) {
+
         axios.get("https://www.wsj.com/").then(function (response) {
             var $ = cheerio.load(response.data);
 
@@ -36,7 +25,21 @@ module.exports = function (app) {
 
             })
 
-            res.send('scraped');
+
         })
+        db.Article.find({}).then(function (art) {
+
+            res.render('index', {
+                articles: JSON.parse(JSON.stringify(art))
+            })
+
+        }).catch(function (err) {
+            console.log(err)
+        })
+
+    });
+
+    app.get('/saved', function (req, res) {
+        
     });
 };

@@ -13,7 +13,7 @@ var databaseUrl = "news";
 var collections = ["scrapedNews"];
 
 var htmlRoute = require('./routes/htmlRoutes');
-var apiRoute = require('./routes/apiRoutes');
+
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true});
 
