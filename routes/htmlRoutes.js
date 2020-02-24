@@ -40,6 +40,15 @@ module.exports = function (app) {
     });
 
     app.get('/saved', function (req, res) {
-        
+        res.render('saved')
     });
+    //Was getting error: Cannot read property of 'create' of undefined
+    // app.post('/saved', function (req, res) {
+       
+    //     db.Saved.create(req.body).then(function (data) {
+
+    //     }).catch(function (err) {
+    //         console.log(err);
+    //     })
+    // })
 };
