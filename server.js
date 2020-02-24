@@ -7,7 +7,7 @@ var cheerio = require("cheerio");
 var path = require('path');
 
 var PORT = process.env.PORT || 8080;
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/news";
 
 var databaseUrl = "news";
 var collections = ["scrapedNews"];

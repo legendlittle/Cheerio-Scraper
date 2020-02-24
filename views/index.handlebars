@@ -28,7 +28,14 @@
     <div class='row'>
         <div class='col-md-12'>
             <span id='articles'>
-                {{!-- This is where we will populate the news articles --}}
+                {{#each articles}}
+                <div>
+
+                    <p><span>Title: {{this.title}}</span></p>
+                    <p><span>Link: <a href="{{this.link}}" target="_blank">Click the Link here!</a> </span></p>
+                </div>
+
+                {{/each}}
             </span>
         </div>
     </div>

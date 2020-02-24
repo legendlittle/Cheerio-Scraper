@@ -1,28 +1,42 @@
-var cheerio = require('cheerio')
-var axios = require('axios')
+const cheerio = require('cheerio')
+const axios = require('axios')
+const db = require('../models');
 module.exports = function (app) {
     app.get('/', function (req, res) {
-        res.render('index')
+        db.Article.find({}).then(function(art) {
+          
+            res.render('index', {
+                articles: JSON.parse(JSON.stringify(art))
+            })
+            
+        }).catch(function(err) {
+            console.log(err)
+        })
+        
     });
 
     app.get('/scraped', function (req, res) {
         axios.get("https://www.wsj.com/").then(function (response) {
             var $ = cheerio.load(response.data);
 
-            $('article div').each(function (i, element) {
+            $('article div h3').each(function (i, element) {
                 var result = {};
 
-                console.log($(this).text());
-                console.log($(this).find('a').attr('href'));
-                
-                
+                result.title = $(this).text();
+                result.link = $(this).find('a').attr('href');
 
 
+
+                db.Article.create(result).then(function (db) {
+                    console.log(db)
+                }).catch(function (err) {
+                    console.log(err);
+                })
 
 
             })
 
-
+            res.send('scraped');
         })
     });
 };
